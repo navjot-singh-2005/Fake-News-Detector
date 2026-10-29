@@ -1,82 +1,195 @@
-# TruthLens
+# TruthLens — AI-Powered Fake News Detector
 
-TruthLens is a React/Vite news-text classification UI backed by an Express API and a separate FastAPI/scikit-learn service. The Python service serves a saved TF-IDF pipeline; it does not train during API startup. A model is unavailable until one has been trained from a real labeled dataset.
+🚀 [**TRY LIVE DEMO — Open TruthLens**](https://fake-news-detector-kda6.onrender.com/)
 
-The classifier predicts **REAL** or **FAKE** according to its training labels. It does not verify claims, establish truth, or replace independent fact-checking. Optional URL indicators are basic heuristics and are not evidence about an article.
+---
 
-## Architecture
+## About the Project
 
-- `frontend/`: React 18 and Vite application. Vite proxies `/api` requests to Express at `http://localhost:5000`.
-- `backend/server.js`: Express API, input validation, URL heuristics, and forwarding to the Python prediction service.
-- `backend/ml_service/`: FastAPI prediction API and scikit-learn training/evaluation code.
-- Prediction history is stored in browser `localStorage`; article text is not stored in history. There is no database.
+TruthLens is a machine learning-based fake news detection web application designed to classify news articles as REAL or FAKE using Natural Language Processing (NLP) and supervised machine learning.
 
-## Requirements
+The platform combines a modern React interface, an Express backend, and a Python-based machine learning service powered by FastAPI and scikit-learn. It provides text classification, prediction results, optional URL analysis, prediction history, and integration with external news and fact-checking providers.
 
-- Node.js 18 or newer and npm.
-- Python 3.10 or newer.
-- The ISOT-derived news dataset, prepared locally with `python -m ml_service.prepare_isot`.
+The application uses TF-IDF text vectorization and evaluates multiple machine learning algorithms to identify a suitable classifier for news text.
+
+## Key Features
+
+- **AI-Powered News Detection:** Classifies news text as REAL or FAKE using a trained ML model.
+- **Multiple ML Algorithms:** Supports Logistic Regression, Linear SVM, and Multinomial Naive Bayes.
+- **Natural Language Processing:** Converts news text into numerical features using TF-IDF.
+- **Prediction Dashboard:** Displays classification results through an interactive web interface.
+- **Prediction History:** Stores prediction history locally in the browser using localStorage.
+- **URL Analysis:** Provides basic URL-related heuristic indicators.
+- **News Search Integration:** Supports related-news searches through an external provider when configured.
+- **Fact-Check Integration:** Supports external fact-checking queries when the required API key is configured.
+- **Model Evaluation:** Evaluates classifiers using accuracy, precision, recall, macro-F1, and confusion matrices.
+- **REST API Integration:** Connects the React frontend to the Express backend and Python ML service.
+- **Responsive Interface:** Provides an accessible interface for entering news articles and viewing predictions.
+
+## Technology Stack
+
+| Component | Technology |
+|---|---|
+| Frontend | React 18 |
+| Frontend Tooling | Vite |
+| Backend | Node.js, Express.js |
+| ML Service | Python, FastAPI |
+| Machine Learning | scikit-learn |
+| NLP | TF-IDF Vectorization |
+| Classification Algorithms | Logistic Regression, Linear SVM, Multinomial Naive Bayes |
+| Model Serialization | Joblib |
+| Prediction History | Browser localStorage |
+| Deployment | Render |
+
+## System Architecture
+
+TruthLens follows a modular architecture in which the frontend, backend API, and machine learning service perform separate responsibilities.
+
+```text
+              User
+               |
+               v
+       React + Vite Frontend
+               |
+               v
+        Express.js Backend
+               |
+               v
+        Python FastAPI API
+               |
+               v
+        NLP Preprocessing
+               |
+               v
+        TF-IDF Vectorizer
+               |
+               v
+       Trained ML Classifier
+               |
+               v
+       REAL / FAKE Prediction
+               |
+               v
+       Display Result in UI
+```
+
+### Main Components
+
+- **Frontend (`frontend/`):** Provides the user interface, news input, prediction display, and client-side interactions.
+- **Express Backend (`backend/server.js`):** Handles API requests, validates input, provides URL-related heuristics, and forwards predictions to the Python service.
+- **Python ML Service (`backend/ml_service/`):** Handles model inference, text classification, and model-related analysis.
+- **Training Pipeline:** Prepares the dataset, trains and evaluates classifiers, and saves the selected model pipeline.
+
+## Machine Learning Algorithms
+
+TruthLens supports three supervised machine learning algorithms for binary news classification.
+
+### 1. Logistic Regression
+
+Uses TF-IDF text features to estimate the relationship between words and the REAL or FAKE labels. It provides an efficient baseline for text classification.
+
+### 2. Linear Support Vector Machine
+
+Uses a linear decision boundary to distinguish between REAL and FAKE news. It is a strong candidate for high-dimensional text classification tasks.
+
+### 3. Multinomial Naive Bayes
+
+Uses word-feature statistics and Bayes' theorem to estimate the class of a news article. It is computationally efficient and useful as a baseline model.
+
+### Model Selection
+
+The training pipeline compares the algorithms using cross-validation on the training partition. The selected algorithm is evaluated on a separate held-out test set before the final pipeline is saved.
 
 ## Dataset
 
-The project uses a cleaned/curated variant of the commonly used ISOT fake/real news article corpus, hosted at [Phoenyx83/ISOT-Fake-News-Dataset-FineTuned-2022](https://huggingface.co/datasets/Phoenyx83/ISOT-Fake-News-Dataset-FineTuned-2022). The source CSVs contain article text and `type` labels (`0` real, `1` fake). Prepare these files locally; downloads are checked against their published content hashes:
+The project uses a curated variant of the ISOT fake and real news dataset.
 
-```powershell
-cd backend
-python -m ml_service.prepare_isot
-```
+**Dataset source:** [ISOT Fake News Dataset FineTuned 2022](https://huggingface.co/datasets/Phoenyx83/ISOT-Fake-News-Dataset-FineTuned-2022)
 
-The upstream dataset card does not declare a specific usage license. Review the dataset and original ISOT terms before using it beyond local evaluation; do not redistribute source CSVs. Downloaded data and generated artifacts are excluded from version control.
+The dataset contains news article text and corresponding labels for REAL and FAKE news.
 
-## Install and train (Windows PowerShell)
+The dataset preparation pipeline processes the source data, removes exact duplicate text, checks for conflicting labels, and prepares the cleaned dataset for model training.
 
-From the project directory:
+## Model Training and Evaluation
+
+The documented training run used the following configuration:
+
+- **Unique usable articles:** 34,099 after exact-text deduplication.
+- **Held-out test samples:** 6,820.
+- **Selected algorithm:** TF-IDF + Linear SVM.
+- **Cross-validation:** Three-fold evaluation on the training partition.
+
+### Reported Model Performance
+
+| Model | Test Accuracy | Macro Precision | Macro Recall | Macro F1 |
+|---|---:|---:|---:|---:|
+| Logistic Regression | 98.27% | 98.28% | 98.27% | 98.27% |
+| Linear SVM | 99.06% | 99.07% | 99.06% | 99.06% |
+| Multinomial Naive Bayes | 95.16% | 95.17% | 95.16% | 95.16% |
+
+The reported results come from the documented training run dated October 26, 2026. They should be reproducible from the same dataset and training configuration.
+
+## Installation and Setup
+
+### Prerequisites
+
+- Python 3.10 or newer.
+- Node.js 18 or newer.
+- npm.
+- Git.
+
+### 1. Clone the Project
+
+Clone the repository and open the project directory in your terminal.
+
+### 2. Set Up the Python Environment
+
+From the project root, run:
 
 ```powershell
 cd backend
 py -3 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
+```
+
+### 3. Prepare the Dataset
+
+```powershell
 python -m ml_service.prepare_isot
+```
+
+### 4. Train the Models
+
+```powershell
 python -m ml_service.train --data .\ml_service\data\isot_fake_news.csv
 ```
 
-Training removes exact duplicate text and rejects conflicting duplicate labels, then makes a stratified 80/20 train/test split. It tunes classifier regularization/smoothing with three-fold accuracy cross-validation on the training partition only, and evaluates each tuned pipeline on the held-out test partition. Each fold fits its own TF-IDF vectorizer, preventing preprocessing leakage. It independently evaluates:
+The training pipeline compares the supported algorithms, evaluates their performance, and saves the selected model and preprocessing pipeline.
 
-1. TF-IDF + Logistic Regression.
-2. TF-IDF + Linear SVM.
-3. TF-IDF + Multinomial Naive Bayes.
+### 5. Start the Python ML Service
 
-It reports CV accuracy and held-out accuracy, macro precision, macro recall, macro F1, class-level metrics, and confusion matrices for each model. The algorithm with the highest mean training-partition CV accuracy is selected, then retrained on all cleaned labeled rows and saved to `backend/ml_service/artifacts/classifier.joblib`; test metrics are written to `evaluation_report.json`. Accuracy on this older curated dataset does not guarantee performance on current or out-of-domain news.
+```powershell
+python -m uvicorn ml_service.main:app --host 127.0.0.1 --port 8001
+```
 
-### Training run (2026-10-26)
+Keep this terminal running.
 
-The prepared dataset had **34,099 unique usable articles** after exact-text deduplication. Evaluation used a stratified held-out test set of **6,820 articles**. The selected pipeline was **TF-IDF + Linear SVM** with `C=2.0`, selected using training-only 3-fold CV (mean accuracy **98.82%**, standard deviation **0.04 percentage points**).
+### 6. Start the Express Backend
 
-| Model | Test accuracy | Macro precision | Macro recall | Macro F1 |
-|---|---:|---:|---:|---:|
-| TF-IDF + Logistic Regression | 98.27% | 98.28% | 98.27% | 98.27% |
-| TF-IDF + Linear SVM (selected) | **99.06%** | **99.07%** | **99.06%** | **99.06%** |
-| TF-IDF + Multinomial Naive Bayes | 95.16% | 95.17% | 95.16% | 95.16% |
-
-Selected-model confusion matrix (rows = actual, columns = predicted; order `FAKE`, `REAL`): `[[3362, 47], [17, 3394]]`. The saved evaluation report contains class-level metrics and other model details. Continuous calibrated probabilities are provided for all models (including Linear SVM via sigmoid decision-function scaling), alongside keyword feature explainability and linguistic metrics.
-
-## Quick Start (One-Click)
-
-Simply double-click `start.bat` in the root directory (or in `New folder/start.bat`). It starts the Python ML service and the frontend, then opens your browser at `http://localhost:5173`.
-
-## Manual Setup & Run (Windows PowerShell)
-
-Start the services in PowerShell:
-
-**Terminal 1 — Python ML Service**
+Open a second terminal:
 
 ```powershell
 cd backend
-python -m uvicorn ml_service.main:app --host 127.0.0.1 --port 8001 --reload
+npm install
+$env:PORT='5001'
+$env:ML_SERVICE_URL='http://127.0.0.1:8001'
+npm run dev
 ```
 
-**Terminal 2 — React Frontend**
+### 7. Start the Frontend
+
+Open a third terminal:
 
 ```powershell
 cd frontend
@@ -84,51 +197,56 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:5173`. The Python service handles both `/api/predict` and `/api/analyze` directly, with complete class probabilities, model feature contributions (indicative keywords), and linguistic metrics.
+Open the local URL displayed by Vite, typically `http://localhost:5173`.
 
-*(Optional)* If you wish to use the Express gateway on port 5001 as well:
+Ensure the frontend API proxy is configured to use the correct Express backend port.
 
-```powershell
-cd backend
-$env:PORT='5001'
-$env:ML_SERVICE_URL='http://127.0.0.1:8001'
-npm install
-npm run dev
-```
+## API Endpoints
 
-## API
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/api/predict` | Classifies news text as REAL or FAKE. |
+| POST | `/api/analyze` | Analyzes news text with optional URL indicators. |
+| GET | `/api/news?q=...` | Searches related news when configured. |
+| GET | `/api/factcheck?q=...` | Queries an external fact-checking provider when configured. |
 
-`POST /api/predict` (Express forwards the request to FastAPI):
+### Example Prediction Request
 
 ```json
 {
-  "text": "The article text to classify"
+  "text": "The news article text to classify"
 }
 ```
 
-Response fields include the predicted `label` and `model_name`. `probabilities` are returned only for models that expose them; they are model estimates, not calibrated truth or proof. Empty input and text longer than 100,000 characters are rejected. When no trained pipeline exists, the endpoint returns HTTP 503 with an explanatory message.
+The prediction endpoint returns the predicted label and model information. Probability estimates are returned when supported by the selected model.
 
-`POST /api/analyze` accepts the same required `text` plus an optional `url`; URL-derived heuristics remain separate from the text prediction. `GET /api/news?q=...` and `GET /api/factcheck?q=...` require their respective provider API keys; provider results are not labeled as confirmations by this app.
+## Testing
 
-## Configuration
-
-If `backend/.env` does not exist, copy `backend/.env.example` to create it; if it already exists, add or edit values without overwriting existing settings. `PORT`, `ML_SERVICE_URL`, `NEWS_API_KEY`, and `FACT_CHECK_API_KEY` are optional. The Vite proxy defaults to port 5001; if Express uses a different port, set `VITE_API_URL` in `frontend/.env` (see `frontend/.env.example`). `MODEL_PATH` and `CORS_ORIGINS` are optional Python process environment variables; by default the model is loaded from `backend/ml_service/artifacts/classifier.joblib` and browser CORS allows the local Vite origin.
-
-## Tests and build
+Run the backend tests:
 
 ```powershell
 cd backend
 npm test
+```
+
+Run the Python ML service tests:
+
+```powershell
 .\.venv\Scripts\python.exe -m unittest discover -s ml_service\tests
-cd ..\frontend
+```
+
+Build the frontend:
+
+```powershell
+cd frontend
 npm run build
 ```
 
-The backend/API tests include invalid, malformed, overlong, and unavailable-service cases. Training writes its actual evaluation report locally; the report, trained model, and dataset are excluded from version control and are not distributed with a fresh project copy.
+## Future Enhancements
 
-## Limitations
-
-- Dataset files, trained model, and evaluation report are downloaded/generated locally and are not committed.
-- URL/domain indicators do not fetch or verify article content, domain age, or blacklist records.
-- Related-news search and fact-check claims require configured external provider keys; related search results are not proof that a claim is confirmed or false.
-- A model classification can be wrong, biased, or out of domain. Verify important information against reliable independent sources.
+- Transformer-based NLP models for comparative evaluation.
+- Improved generalization to recent and previously unseen news.
+- Enhanced explainability for individual predictions.
+- Evaluation across multiple independent news datasets.
+- Additional automated testing and production monitoring.
+- Improved integration with reliable external fact-checking sources.
