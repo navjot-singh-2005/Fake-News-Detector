@@ -18,16 +18,28 @@ EVALUATION_REPORT_PATH = BASE_DIR / "artifacts" / "evaluation_report.json"
 MAX_TEXT_LENGTH = 100_000
 
 app = FastAPI(title="TruthLens ML API", version="2.0.0")
+cors_origins_env = os.getenv("CORS_ORIGINS", "")
+if cors_origins_env.strip() == "*":
+    origins = ["*"]
+else:
+    origins = [
+        origin.strip()
+        for origin in cors_origins_env.split(",")
+        if origin.strip()
+    ]
+    if not origins:
+        origins = [
+            "http://localhost:5173",
+            "http://127.0.0.1:5173",
+            "http://localhost:5001",
+            "http://127.0.0.1:5001",
+            "http://localhost:3000",
+        ]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        origin.strip()
-        for origin in os.getenv(
-            "CORS_ORIGINS",
-            "http://localhost:5173,http://127.0.0.1:5173,http://localhost:5001,http://127.0.0.1:5001,http://localhost:3000",
-        ).split(",")
-        if origin.strip()
-    ],
+    allow_origins=origins,
+    allow_origin_regex=r"https://.*\.onrender\.com|https://.*\.vercel\.app",
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )

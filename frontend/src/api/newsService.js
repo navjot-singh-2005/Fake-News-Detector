@@ -1,6 +1,9 @@
 import axios from 'axios'
 
-const API_URL = '/api'
+const RAW_API_URL = import.meta.env.VITE_API_URL || ''
+const API_URL = RAW_API_URL
+  ? (RAW_API_URL.endsWith('/api') ? RAW_API_URL : `${RAW_API_URL.replace(/\/$/, '')}/api`)
+  : '/api'
 
 export const getRelatedNews = async (query) => {
   if (!query?.trim()) return { articles: [] }
