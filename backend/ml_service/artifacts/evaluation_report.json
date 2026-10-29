@@ -1,0 +1,172 @@
+{
+  "dataset": "ml_service\\data\\isot_fake_news.csv",
+  "training_rows": 34099,
+  "holdout_fraction": 0.2,
+  "random_state": 42,
+  "selected_model": "TF-IDF + Linear SVM",
+  "selection_metric": "mean accuracy across 3-fold CV on training data",
+  "models": {
+    "TF-IDF + Logistic Regression": {
+      "selection_cv_accuracy_mean": 0.9793614135415522,
+      "selection_cv_accuracy_std": 0.0018927864868104392,
+      "best_parameters": {
+        "classifier__C": 2.0
+      },
+      "accuracy": 0.9829912023460411,
+      "balanced_accuracy": 0.9829888789216534,
+      "precision_macro": 0.9831145175407471,
+      "recall_macro": 0.9829888789216534,
+      "f1_macro": 0.98299005548658,
+      "confusion_matrix": [
+        [
+          3324,
+          85
+        ],
+        [
+          31,
+          3380
+        ]
+      ],
+      "confusion_matrix_labels": [
+        "FAKE",
+        "REAL"
+      ],
+      "classification_report": {
+        "FAKE": {
+          "precision": 0.9907600596125187,
+          "recall": 0.975066001760047,
+          "f1-score": 0.9828503843879361,
+          "support": 3409.0
+        },
+        "REAL": {
+          "precision": 0.9754689754689755,
+          "recall": 0.99091175608326,
+          "f1-score": 0.983129726585224,
+          "support": 3411.0
+        },
+        "accuracy": 0.9829912023460411,
+        "macro avg": {
+          "precision": 0.9831145175407471,
+          "recall": 0.9829888789216534,
+          "f1-score": 0.98299005548658,
+          "support": 6820.0
+        },
+        "weighted avg": {
+          "precision": 0.9831122754462979,
+          "recall": 0.9829912023460411,
+          "f1-score": 0.9829900964458466,
+          "support": 6820.0
+        }
+      },
+      "roc_auc": 0.9986363205198029
+    },
+    "TF-IDF + Linear SVM": {
+      "selection_cv_accuracy_mean": 0.9848601488324352,
+      "selection_cv_accuracy_std": 0.0007313294968019406,
+      "best_parameters": {
+        "classifier__C": 2.0
+      },
+      "accuracy": 0.9870967741935484,
+      "balanced_accuracy": 0.9870950531122928,
+      "precision_macro": 0.9871654376123895,
+      "recall_macro": 0.9870950531122928,
+      "f1_macro": 0.9870962848153699,
+      "confusion_matrix": [
+        [
+          3345,
+          64
+        ],
+        [
+          24,
+          3387
+        ]
+      ],
+      "confusion_matrix_labels": [
+        "FAKE",
+        "REAL"
+      ],
+      "classification_report": {
+        "FAKE": {
+          "precision": 0.9928762243989314,
+          "recall": 0.9812261660310941,
+          "f1-score": 0.9870168191206846,
+          "support": 3409.0
+        },
+        "REAL": {
+          "precision": 0.9814546508258476,
+          "recall": 0.9929639401934917,
+          "f1-score": 0.9871757505100553,
+          "support": 3411.0
+        },
+        "accuracy": 0.9870967741935484,
+        "macro avg": {
+          "precision": 0.9871654376123895,
+          "recall": 0.9870950531122928,
+          "f1-score": 0.9870962848153699,
+          "support": 6820.0
+        },
+        "weighted avg": {
+          "precision": 0.9871637628948567,
+          "recall": 0.9870967741935484,
+          "f1-score": 0.9870963081190929,
+          "support": 6820.0
+        }
+      },
+      "roc_auc": 0.9992166389364245
+    },
+    "TF-IDF + Multinomial Naive Bayes": {
+      "selection_cv_accuracy_mean": 0.9483485465009714,
+      "selection_cv_accuracy_std": 0.0008721270760196695,
+      "best_parameters": {
+        "classifier__alpha": 0.5
+      },
+      "accuracy": 0.9489736070381232,
+      "balanced_accuracy": 0.948973516651346,
+      "precision_macro": 0.948973825540237,
+      "recall_macro": 0.948973516651346,
+      "f1_macro": 0.9489735894853293,
+      "confusion_matrix": [
+        [
+          3234,
+          175
+        ],
+        [
+          173,
+          3238
+        ]
+      ],
+      "confusion_matrix_labels": [
+        "FAKE",
+        "REAL"
+      ],
+      "classification_report": {
+        "FAKE": {
+          "precision": 0.9492221896096272,
+          "recall": 0.9486652977412731,
+          "f1-score": 0.948943661971831,
+          "support": 3409.0
+        },
+        "REAL": {
+          "precision": 0.9487254614708468,
+          "recall": 0.9492817355614189,
+          "f1-score": 0.9490035169988277,
+          "support": 3411.0
+        },
+        "accuracy": 0.9489736070381232,
+        "macro avg": {
+          "precision": 0.948973825540237,
+          "recall": 0.948973516651346,
+          "f1-score": 0.9489735894853293,
+          "support": 6820.0
+        },
+        "weighted avg": {
+          "precision": 0.9489737527061991,
+          "recall": 0.9489736070381232,
+          "f1-score": 0.9489735982617262,
+          "support": 6820.0
+        }
+      },
+      "roc_auc": 0.9878861540480521
+    }
+  }
+}

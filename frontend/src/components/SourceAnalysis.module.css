@@ -1,0 +1,171 @@
+.card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.icon {
+  font-size: 1.5rem;
+  margin-top: 2px;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* ─── Score Section ─── */
+.scoreSection {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px;
+  background: rgba(255,255,255,0.02);
+  border: var(--border-glass);
+  border-radius: var(--radius-md);
+}
+
+.scoreCircle {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 3px solid var(--score-color, var(--color-primary));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px color-mix(in srgb, var(--score-color) 40%, transparent);
+  background: color-mix(in srgb, var(--score-color) 8%, transparent);
+}
+
+.scoreNum {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.scoreLabel {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+}
+
+.scoreRight {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.domain {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  word-break: break-all;
+}
+
+.scoreSub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.barTrack {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: 3px;
+  box-shadow: 0 0 8px currentColor;
+}
+
+/* ─── Metrics Table ─── */
+.metricsTable {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metricRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: var(--border-glass);
+  font-size: 0.84rem;
+}
+
+.metricRow:last-child { border-bottom: none; }
+
+.metricLabel {
+  color: var(--text-secondary);
+}
+
+.metricValue {
+  font-weight: 600;
+}
+
+.ok { color: var(--color-real); }
+.warn { color: var(--color-suspicious); }
+.info { color: var(--text-muted); text-align: right; }
+
+/* ─── Flags ─── */
+.flags {
+  background: var(--color-fake-dim);
+  border: 1px solid rgba(239,68,68,0.2);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.flagsTitle {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-fake);
+  margin-bottom: 4px;
+}
+
+.flag {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  padding-left: 10px;
+  position: relative;
+}
+
+.flag::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--color-fake);
+}
+
+/* ─── Keywords ─── */
+.keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.keyword {
+  padding: 3px 10px;
+  background: var(--color-suspicious-dim);
+  border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 100px;
+  font-size: 0.72rem;
+  color: var(--color-suspicious);
+  font-weight: 600;
+}

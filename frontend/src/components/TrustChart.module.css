@@ -1,0 +1,88 @@
+.card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.icon { font-size: 1.5rem; margin-top: 2px; }
+.title { font-size: 1.1rem; font-weight: 700; }
+
+/* ─── Avg Score ─── */
+.avgScore {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.avgNum {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+.avgLabel {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* ─── Chart ─── */
+.chartWrapper {
+  max-width: 260px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ─── Breakdown ─── */
+.breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: var(--border-glass);
+}
+
+.breakdownItem {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.breakdownLabel {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.breakdownBar {
+  width: 80px;
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.breakdownFill {
+  height: 100%;
+  width: var(--bw, 0%);
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  border-radius: 2px;
+  animation: progressFill 1.2s ease both;
+}
+
+.breakdownVal {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  width: 32px;
+  text-align: right;
+}

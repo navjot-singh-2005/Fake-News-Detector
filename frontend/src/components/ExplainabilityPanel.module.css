@@ -1,0 +1,199 @@
+.card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.icon {
+  font-size: 1.5rem;
+  margin-top: 2px;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* ─── Explanation ─── */
+.explanationBox {
+  position: relative;
+  padding: 20px 20px 20px 40px;
+  background: linear-gradient(135deg, rgba(34,211,238,0.04), rgba(139,92,246,0.04));
+  border: var(--border-glass);
+  border-left: 3px solid var(--color-primary);
+  border-radius: var(--radius-md);
+}
+
+.quoteIcon {
+  position: absolute;
+  top: 8px;
+  left: 14px;
+  font-size: 2.5rem;
+  color: var(--color-primary);
+  opacity: 0.4;
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+
+.explanation {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+/* ─── Signals (Keywords) ─── */
+.signalsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.signalsTitle {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+.signalsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.signalGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.signalLabelReal {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--color-real);
+}
+
+.signalLabelFake {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--color-fake);
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tagReal {
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #4ade80;
+}
+
+.tagFake {
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+
+/* ─── Linguistic Metrics ─── */
+.metricsRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 12px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: var(--border-glass);
+  border-radius: var(--radius-md);
+}
+
+.metricItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+}
+
+.metricNum {
+  font-size: 1.15rem;
+  font-weight: 800;
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--text-primary);
+}
+
+.metricLabel {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* ─── Flags ─── */
+.flagsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.flagsTitle {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.flagsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.flagItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+}
+
+.flagDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-suspicious);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+/* ─── Disclaimer ─── */
+.disclaimer {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 12px;
+  background: rgba(255,255,255,0.02);
+  border: var(--border-glass);
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.disclaimer span {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
